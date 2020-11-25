@@ -71,7 +71,7 @@ class UserPreferences {
   public static function get(string $key) {
     self::load();
     return Arr::get(
-      self::$preferences,
+      (array) self::$preferences,
       $key,
       Arr::get(config('user-preferences.defaults'), $key, null)
     );
@@ -126,7 +126,7 @@ class UserPreferences {
    */
   public static function has(string $key): bool {
     self::load();
-    return (isset(self::$preferences->{$key}));
+    return Arr::has((array) self::$preferences, $key);
   }
 
   /**
