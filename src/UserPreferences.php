@@ -50,7 +50,7 @@ class UserPreferences {
    *
    * Default is authenticated user
    */
-  protected static function for($user): self {
+  public static function for($user): self {
     self::$userId = $user->id;
     return new static;
   }
@@ -58,7 +58,8 @@ class UserPreferences {
   /**
    * Get the default preferences
    */
-  public static function default() {
+  public static function
+  default() {
     return (object) config('user-preferences.defaults');
   }
 
@@ -82,6 +83,18 @@ class UserPreferences {
   public static function set(string $key, $value): self {
     self::load();
     self::$preferences->{$key} = $value;
+    self::save();
+    return new static;
+  }
+
+  /**
+   * Update multiple preferences at once
+   */
+  public static function update(array $prefs): self {
+    self::load();
+    foreach ($prefs as $key => $value) {
+      self::$preferences->{$key} = $value;
+    }
     self::save();
     return new static;
   }
@@ -111,7 +124,7 @@ class UserPreferences {
   /**
    * Check if a key exists in the preferences
    */
-  public static function has(string $key) : bool {
+  public static function has(string $key): bool {
     self::load();
     return (isset(self::$preferences->{$key}));
   }
@@ -119,7 +132,7 @@ class UserPreferences {
   /**
    * Get all preferences
    */
-  public static function all() : object {
+  public static function all(): object {
     self::load();
     return self::$preferences;
   }
