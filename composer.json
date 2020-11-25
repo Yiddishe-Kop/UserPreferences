@@ -1,42 +1,51 @@
 {
-    "name": "yiddishe-kop/user-preferences",
-    "description": "Easily store preferences per user",
-    "license": "license",
-    "authors": [
-        {
-            "name": "Yehuda Neufeld",
-            "email": "yehuda@yiddishe-kop.com",
-            "role": "Developer",
-            "homepage": "https://yiddishe-kop.com"
-        }
-    ],
-    "homepage": "https://github.com/yiddishe-kop/UserPreferences",
-    "keywords": ["Laravel", "UserPreferences"],
-    "require": {
-        "illuminate/support": "~7|~8"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~9.0",
-        "orchestra/testbench": "~5|~6"
-    },
-    "autoload": {
-        "psr-4": {
-            "YiddisheKop\\UserPreferences\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "YiddisheKop\\UserPreferences\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "YiddisheKop\\UserPreferences\\UserPreferencesServiceProvider"
-            ],
-            "aliases": {
-                "UserPreferences": "YiddisheKop\\UserPreferences\\Facades\\UserPreferences"
-            }
-        }
+  "name": "yiddishe-kop/user-preferences",
+  "description": "Easily store preferences per user",
+  "keywords": [
+    "yiddishe-kop",
+    "laravel",
+    "user preferences"
+  ],
+  "homepage": "https://github.com/Yiddishe-Kop/UserPreferences",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Yehuda Neufeld",
+      "email": "yehuda@yiddishe-kop.com",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "illuminate/support": "~7|~8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~9.0",
+    "orchestra/testbench": "~5|~6"
+  },
+  "autoload": {
+    "psr-4": {
+      "YiddisheKop\\UserPreferences\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "YiddisheKop\\UserPreferences\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "YiddisheKop\\UserPreferences\\UserPreferencesServiceProvider"
+      ],
+      "aliases": {
+        "UserPreferences": "YiddisheKop\\UserPreferences\\Facades\\UserPreferences"
+      }
+    }
+  }
 }
