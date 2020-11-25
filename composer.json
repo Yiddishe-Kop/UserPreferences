@@ -1,15 +1,16 @@
 {
-    "name": "yiddishekop/userpreferences",
-    "description": ":package_description",
+    "name": "yiddishe-kop/user-preferences",
+    "description": "Easily store preferences per user",
     "license": "license",
     "authors": [
         {
-            "name": "author name",
-            "email": "author email",
-            "homepage": "author homepage"
+            "name": "Yehuda Neufeld",
+            "email": "yehuda@yiddishe-kop.com",
+            "role": "Developer",
+            "homepage": "https://yiddishe-kop.com"
         }
     ],
-    "homepage": "https://github.com/yiddishekop/userpreferences",
+    "homepage": "https://github.com/yiddishe-kop/UserPreferences",
     "keywords": ["Laravel", "UserPreferences"],
     "require": {
         "illuminate/support": "~7|~8"

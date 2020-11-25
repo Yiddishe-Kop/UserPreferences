@@ -9,10 +9,15 @@ This is where your description should go. Take a look at [contributing.md](contr
 
 ## Installation
 
-Via Composer
+You can install the package via composer:
 
-``` bash
-$ composer require yiddishekop/userpreferences
+```bash
+composer require yiddishe-kop/user-preferences
+```
+
+To publish the `user-preferences.php` config file:
+```bash
+php artisan vendor:publish --provider="YiddisheKop\UserPreferences\UserPreferencesServiceProvider" --tag="config"
 ```
 
 ## Usage
@@ -37,12 +42,12 @@ If you discover any security related issues, please email author email instead o
 
 ## Credits
 
-- [author name][link-author]
+- [Yehuda Neufeld][https://yiddishe-kop.com]
 - [All Contributors][link-contributors]
 
 ## License
 
-license. Please see the [license file](license.md) for more information.
+Please see the [license file](license.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/yiddishekop/userpreferences.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/yiddishekop/userpreferences.svg?style=flat-square

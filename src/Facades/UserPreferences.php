@@ -13,6 +13,6 @@ class UserPreferences extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'userpreferences';
+        return 'userPreferences';
     }
 }
