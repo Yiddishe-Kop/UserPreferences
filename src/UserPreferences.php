@@ -69,12 +69,12 @@ class UserPreferences {
    *
    * returns defaults if not set on the user
    */
-  public static function get(string $key) {
+  public static function get(string $key, $default = null) {
     self::load();
     return Arr::get(
       (array) self::$preferences,
       $key,
-      Arr::get(config('user-preferences.defaults'), $key, null)
+      Arr::get(config('user-preferences.defaults'), $key, $default)
     );
   }
 
