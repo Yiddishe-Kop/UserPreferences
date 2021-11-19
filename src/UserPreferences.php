@@ -51,7 +51,8 @@ class UserPreferences {
    * Default is authenticated user
    */
   public static function for($user): self {
-    self::$userId = $user->id;
+    $id = is_numeric($user) ? $user : $user->id;
+    self::$userId = $id;
     return new static;
   }
 
