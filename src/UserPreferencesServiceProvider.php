@@ -23,7 +23,7 @@ class UserPreferencesServiceProvider extends ServiceProvider {
 
     $this->publishes([
         __DIR__ . '/../database/migrations' => $this->app->databasePath('migrations'),
-    ], 'migrations');
+    ], 'prefs-migrations');
     // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
     // Publishing is only necessary when using the CLI.
@@ -64,7 +64,7 @@ class UserPreferencesServiceProvider extends ServiceProvider {
     // Publishing the configuration file.
     $this->publishes([
       __DIR__ . '/../config/user-preferences.php' => config_path('user-preferences.php'),
-    ], 'config');
+    ], 'prefs-config');
 
     // Registering package commands.
     // $this->commands([]);
