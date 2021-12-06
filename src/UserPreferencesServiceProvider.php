@@ -5,6 +5,9 @@ namespace YiddisheKop\UserPreferences;
 use Illuminate\Support\ServiceProvider;
 
 class UserPreferencesServiceProvider extends ServiceProvider {
+
+    private static $ignoreMigrations = false;
+
   /**
    * Perform post-registration booting of services.
    *
@@ -13,7 +16,14 @@ class UserPreferencesServiceProvider extends ServiceProvider {
   public function boot(): void {
     // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'yiddishekop');
     // $this->loadViewsFrom(__DIR__.'/../resources/views', 'yiddishekop');
-    $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+    if (!self::$ignoreMigrations) {
+      $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
+
+    $this->publishes([
+        __DIR__ . '/../database/migrations' => $this->app->databasePath('migrations'),
+    ], 'migrations');
     // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
     // Publishing is only necessary when using the CLI.
@@ -58,5 +68,9 @@ class UserPreferencesServiceProvider extends ServiceProvider {
 
     // Registering package commands.
     // $this->commands([]);
+  }
+
+  public static function ignoreMigrations(): void {
+    self::$ignoreMigrations = true;
   }
 }
