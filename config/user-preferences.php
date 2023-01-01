@@ -2,16 +2,16 @@
 
 return [
 
-  // Database
-  'database' => [
-    'table' => 'users',
-    'column' => 'preferences',
-    'primary_key' => 'id'
-  ],
+    // Database
+    'database' => [
+        'table'       => 'users',
+        'column'      => 'preferences',
+        'primary_key' => 'id',
+    ],
 
-  // Default preferences
-  'defaults' => [
-    'theme' => 'dark',
-  ]
+    // Default preferences
+    'defaults' => [
+        'theme' => 'dark',
+    ],
 
 ];

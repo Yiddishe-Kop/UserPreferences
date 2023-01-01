@@ -4,73 +4,71 @@ namespace YiddisheKop\UserPreferences;
 
 use Illuminate\Support\ServiceProvider;
 
-class UserPreferencesServiceProvider extends ServiceProvider {
-
+class UserPreferencesServiceProvider extends ServiceProvider
+{
     private static $ignoreMigrations = false;
 
-  /**
-   * Perform post-registration booting of services.
-   *
-   * @return void
-   */
-  public function boot(): void {
-    // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'yiddishekop');
-    // $this->loadViewsFrom(__DIR__.'/../resources/views', 'yiddishekop');
+    /**
+     * Perform post-registration booting of services.
+     *
+     * @return void
+     */
+    public function boot(): void
+    {
+        if (! self::$ignoreMigrations) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
 
-    if (!self::$ignoreMigrations) {
-      $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->publishes([
+            __DIR__.'/../database/migrations' => $this->app->databasePath('migrations'),
+        ], 'prefs-migrations');
+
+        // Publishing is only necessary when using the CLI.
+        if ($this->app->runningInConsole()) {
+            $this->bootForConsole();
+        }
     }
 
-    $this->publishes([
-        __DIR__ . '/../database/migrations' => $this->app->databasePath('migrations'),
-    ], 'prefs-migrations');
-    // $this->loadRoutesFrom(__DIR__.'/routes.php');
+    /**
+     * Register any package services.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/user-preferences.php', 'user-preferences');
 
-    // Publishing is only necessary when using the CLI.
-    if ($this->app->runningInConsole()) {
-      $this->bootForConsole();
+        // Register the service the package provides.
+        $this->app->singleton('userPreferences', function ($app) {
+            return new UserPreferences;
+        });
     }
-  }
 
-  /**
-   * Register any package services.
-   *
-   * @return void
-   */
-  public function register(): void {
-    $this->mergeConfigFrom(__DIR__ . '/../config/user-preferences.php', 'user-preferences');
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['userPreferences'];
+    }
 
-    // Register the service the package provides.
-    $this->app->singleton('userPreferences', function ($app) {
-      return new UserPreferences;
-    });
-  }
+    /**
+     * Console-specific booting.
+     *
+     * @return void
+     */
+    protected function bootForConsole(): void
+    {
+        // Publishing the configuration file.
+        $this->publishes([
+            __DIR__.'/../config/user-preferences.php' => config_path('user-preferences.php'),
+        ], 'prefs-config');
+    }
 
-  /**
-   * Get the services provided by the provider.
-   *
-   * @return array
-   */
-  public function provides() {
-    return ['userPreferences'];
-  }
-
-  /**
-   * Console-specific booting.
-   *
-   * @return void
-   */
-  protected function bootForConsole(): void {
-    // Publishing the configuration file.
-    $this->publishes([
-      __DIR__ . '/../config/user-preferences.php' => config_path('user-preferences.php'),
-    ], 'prefs-config');
-
-    // Registering package commands.
-    // $this->commands([]);
-  }
-
-  public static function ignoreMigrations(): void {
-    self::$ignoreMigrations = true;
-  }
+    public static function ignoreMigrations(): void
+    {
+        self::$ignoreMigrations = true;
+    }
 }
