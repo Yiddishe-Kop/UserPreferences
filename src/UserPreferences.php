@@ -162,10 +162,10 @@ class UserPreferences
     {
         // If a model is configured, use that to fire Laravel model events etc.
         if ($model = config('user-preferences.model')) {
-            $model::where(config('user-preferences.database.primary_key'), '=', self::getUserId())
-              ->update([
-                  config('user-preferences.database.column') => json_encode(self::$preferences),
-              ]);
+            $model::find(self::getUserId())
+                ?->update([
+                    config('user-preferences.database.column') => json_encode(self::$preferences),
+                ]);
         } else {
             DB::table(config('user-preferences.database.table'))
                 ->where(config('user-preferences.database.primary_key'), '=', self::getUserId())
