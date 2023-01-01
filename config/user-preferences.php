@@ -2,6 +2,8 @@
 
 return [
 
+    'model'    => null,
+
     // Database
     'database' => [
         'table'       => 'users',

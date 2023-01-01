@@ -30,7 +30,7 @@ class UserPreferences
 
     protected static function loadPreferences()
     {
-        $data = DB::table(config('user-preferences.database.table'))
+        $data = DB::table(Support::getTable())
           ->select(config('user-preferences.database.column'))
           ->where(config('user-preferences.database.primary_key'), '=', self::getUserId())
           ->first();
@@ -160,9 +160,17 @@ class UserPreferences
      */
     protected static function save(): self
     {
-        DB::table(config('user-preferences.database.table'))
-          ->where(config('user-preferences.database.primary_key'), '=', self::getUserId())
-          ->update([config('user-preferences.database.column') => json_encode(self::$preferences)]);
+        // If a model is configured, use that to fire Laravel model events etc.
+        if ($model = config('user-preferences.model')) {
+            $model::where(config('user-preferences.database.primary_key'), '=', self::getUserId())
+              ->update([
+                  config('user-preferences.database.column') => json_encode(self::$preferences),
+              ]);
+        } else {
+            DB::table(config('user-preferences.database.table'))
+                ->where(config('user-preferences.database.primary_key'), '=', self::getUserId())
+                ->update([config('user-preferences.database.column') => json_encode(self::$preferences)]);
+        }
 
         return new static;
     }
