@@ -164,7 +164,7 @@ class UserPreferences
         if ($model = config('user-preferences.model')) {
             $model::find(self::getUserId())
                 ?->update([
-                    config('user-preferences.database.column') => json_encode(self::$preferences),
+                    config('user-preferences.database.column') => self::$preferences,
                 ]);
         } else {
             DB::table(config('user-preferences.database.table'))
