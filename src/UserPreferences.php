@@ -57,6 +57,9 @@ class UserPreferences
         $id = is_numeric($user) ? $user : $user->id;
         self::$userId = $id;
 
+        self::$preferences = null;
+        self::$hasLoaded = false;
+
         return new static;
     }
 
